@@ -40,7 +40,7 @@ Add user (using 10-digit format RFID number):
 
 	badge = ten_digit_to_comma_format(11111111) # badge number needs to be converted to "comma format"
 
-	client.addUser(badge)
+	client.add_user(badge)
 
 Remove user (using 10-digit format RFID number):
 
@@ -52,7 +52,7 @@ Remove user (using 10-digit format RFID number):
 
 	badge = ten_digit_to_comma_format(11111111) # badge number needs to be converted to "comma format"
 
-	client.removeUser(badge)
+	client.remove_user(badge)
 	
 
 Special Thanks

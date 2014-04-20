@@ -6,4 +6,4 @@ client = RFIDClient(ip_address, controller_serial)
 
 badge = ten_digit_to_comma_format(11111111) # badge number needs to be in "comma format"
 
-client.addUser(badge)
+client.add_user(badge)

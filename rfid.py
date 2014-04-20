@@ -96,7 +96,7 @@ class RFIDClient():
 		listString[4:8] = struct.pack('<H', code).encode('hex') # switch order to little endian and return unsigned short, then replace characters in list with the CRC values
 		return "".join(listString) 
 
-	def addUser(self, badge):
+	def add_user(self, badge):
 		if not isinstance(badge, int):
 			raise TypeError("RFID number must be set to an integer")
 			
@@ -116,7 +116,7 @@ class RFIDClient():
 		if (recv_data2[:4] != '2321'):
 			raise Exception("Unexpected Result Received: %s" % recv_data2)
 
-	def removeUser(self, badge):
+	def remove_user(self, badge):
 		if not isinstance(badge, int):
 			raise TypeError("RFID number must be set to an integer")
 			
