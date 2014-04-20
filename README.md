@@ -8,7 +8,7 @@ The goal of this project is to provide a cheap, out-of-the-box solution for RFID
 Main Features
 -----
 
-- Programmatically add and Remove users from the access control system
+- Programmatically add and remove users to/from the access control system
 - Convert the 10-digit format RFID numbers to comma format or vice versa
 
 Hardware Requirement
