@@ -9,7 +9,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='Chinese RFID Access Control Library',
+    name='Chinese-RFID-Access-Control-Library',
     version='0.0.1',
     description='A library for interfacing with one of the most common RFID Access Control System sold in China.',
     long_description=readme,
