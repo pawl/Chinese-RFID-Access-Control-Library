@@ -29,6 +29,8 @@ My usage example below shows an example of a function which converts the number 
 
 Usage
 -----
+Install:
+	pip install Chinese-RFID-Access-Control-Library
 
 Add user (using 10-digit format RFID number):
 
