@@ -3,7 +3,7 @@ Chinese RFID Access Control Library
 
 This library allows python to control one of the most common RFID Access Control Systems sold in China. Now you can integrate an access control system with your software to do things like remove an user when they have failed to pay their bill. 
 
-The goal of this project is to provide a cheap, out-of-the-box solution for RFID Access Control to Hackerspaces, Makerspaces, or other businesses which rely on RFID access control.
+The goal of this project is to provide the ability to automate an inexpensive, out-of-the-box solution for RFID Access Control. This is especially made for businesses that rely on access control and monthly billing (hackerspaces, makerspaces, and gyms).
 
 Main Features
 -----
