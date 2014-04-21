@@ -13,7 +13,7 @@ Main Features
 
 Hardware Requirement
 -----
-This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon for around $30-85 (depending on the number of doors). You can know which one to buy by looking for one that looks like this:
+This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon. It costs around $30-85 (depending on the number of doors). You can know which one to buy by looking for one that looks like this:
 
 ![alt tag](https://raw.githubusercontent.com/pawl/Chinese-RFID-Access-Control-Library/master/access_controller.png)
 
