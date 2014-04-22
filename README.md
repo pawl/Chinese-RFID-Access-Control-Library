@@ -9,6 +9,7 @@ Main Features
 -----
 
 - Programmatically add and remove users to/from the access control system
+- Programmatically trigger the relay to open the door
 - Convert the 10-digit format RFID numbers to comma format or vice versa
 
 Hardware Requirement
@@ -57,13 +58,22 @@ Remove user (using 10-digit format RFID number):
 
 	client.remove_user(badge)
 	
+Open door #1:
+
+	from rfid import RFIDClient
+
+	ip_address = '192.168.1.20'
+	controller_serial = 123106461
+	client = RFIDClient(ip_address, controller_serial)
+
+	client.open_door(1)
+	
 TODO
 -----
 - Add an optional name parameter to add_user. The access controller also stores the user's name.
 - The controller also stores the user's 2-factor pin for when the keypad is enabled. Need to add an optional parameter to add_user for a pin.
 - Add a get_users method to RFIDClient that outputs a list of all the users currently in the controller.
 - Add a get_logs method to RFIDClient which outputs the card swipe logs.
-- Add an open_door method to RFIDClient.
 
 Special Thanks
 -----

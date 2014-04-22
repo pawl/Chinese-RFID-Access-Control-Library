@@ -128,6 +128,21 @@ class RFIDClient():
 		recv_data =  binascii.b2a_hex(self.s.recv(1024))
 		if (recv_data[:4] != '2321'):
 			raise Exception("Unexpected Result Received: %s" % recv_data)
+			
+	def open_door(self, door_number):
+		if not isinstance(door_number, int):
+			raise TypeError("RFID number must be set to an integer")
+		if not (1 <= door_number <= 4):
+			raise Exception("door_number must be 1 to 4")
+				
+		door_number = str(door_number - 1).zfill(2)
+		
+		open_door_packet = self.CRC_16_IBM("2040" + self.source_port + "0500000000000000" + self.controller_serial + "0000020001000000ffffffffffffffff" + door_number + "000000").decode('hex')
+		self.s.send(self.start_transaction)
+		self.s.send(open_door_packet)
+		recv_data =  binascii.b2a_hex(self.s.recv(1024))
+		if (recv_data[:4] != '2041'):
+			raise Exception("Unexpected Result Received: %s" % recv_data)
 		
 	def __del__(self):
 		"""
