@@ -1,9 +1,11 @@
 Chinese RFID Access Control Library
 ========================
 
-This library allows python to control one of the most common RFID Access Control Systems sold in China. Now you can integrate an access control system with your software to do things like remove an user when they have failed to pay their bill. 
+This library allows python to control one of the most common RFID Access Control Systems sold in China. Now you can integrate an access 
+control system with your software to do things like remove an user when they have failed to pay their bill. 
 
-The goal of this project is to provide the ability to automate an inexpensive, out-of-the-box RFID Access Control solution. This is especially made for businesses that rely on access control + monthly billing (hackerspaces, makerspaces, and gyms).
+The goal of this project is to provide the ability to automate an inexpensive, out-of-the-box RFID Access Control solution. This is 
+especially made for businesses that rely on access control + monthly billing (hackerspaces, makerspaces, and gyms).
 
 Main Features
 -----
@@ -14,11 +16,14 @@ Main Features
 
 Hardware Requirement
 -----
-This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon. It costs around $30-85 (depending on the number of doors). You can know which one to buy by looking for one that looks like this:
+This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can 
+be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon. It costs around $30-85 (depending on the number of 
+doors). You can know which one to buy by looking for one that looks like this:
 
 ![alt tag](https://raw.githubusercontent.com/pawl/Chinese-RFID-Access-Control-Library/master/access_controller.png)
 
-One of the awesome things this controller has is a web interface. You can also add users, remove users, view logs, and change settings manually through that interface. Pictures of the interface are available here: http://imgur.com/a/Mw04Y
+One of the awesome things this controller has is a web interface. You can also add users, remove users, view logs, and change settings 
+manually through that interface. Pictures of the interface are available here: http://imgur.com/a/Mw04Y
 
 RFID Card Number Explanation
 -----
@@ -26,7 +31,8 @@ RFID Card Number Explanation
 
 There are two numbers on the card. The access controller only uses the right number which I'm calling comma-format.
 
-My usage example below shows an example of a function which converts the number on the left (which I'm calling 10-digit format) to the number on the right (comma format).
+My usage example below shows an example of a function which converts the number on the left (which I'm calling 10-digit format) 
+to the number on the right (comma format).
 
 Usage
 -----
