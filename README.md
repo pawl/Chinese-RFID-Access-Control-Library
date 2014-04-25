@@ -50,7 +50,7 @@ Add user (using 10-digit format RFID number):
 
 	badge = ten_digit_to_comma_format(11111111) # badge number needs to be converted to "comma format"
 
-	client.add_user(badge)
+	client.add_user(badge, [1, 2]) # add privileges for door 1 & 2
 
 Remove user (using 10-digit format RFID number):
 

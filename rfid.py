@@ -96,9 +96,19 @@ class RFIDClient():
 		listString[4:8] = struct.pack('<H', code).encode('hex') # switch order to little endian and return unsigned short, then replace characters in list with the CRC values
 		return "".join(listString) 
 
-	def add_user(self, badge):
+	def add_user(self, badge, doors):
 		if not isinstance(badge, int):
 			raise TypeError("RFID number must be set to an integer")
+			
+		if not isinstance(doors, list):
+			raise Exception("doors must be set to a list")
+		
+		# create a list of "01"'s (enabled) and "00"'s (disabled), then later join to create "01000000" (which is only door 1 enabled)
+		doorsList = []
+		doorsList.append("01") if 1 in doors else doorsList.append("00") # door 1
+		doorsList.append("01") if 2 in doors else doorsList.append("00") # door 2
+		doorsList.append("01") if 3 in doors else doorsList.append("00") # door 3
+		doorsList.append("01") if 4 in doors else doorsList.append("00") # door 4
 			
 		badge = struct.pack('<I', badge).encode('hex') # pack as little endian integer
 		
@@ -109,7 +119,7 @@ class RFIDClient():
 		if (recv_data1[:4] != '2011'):
 			raise Exception("Unexpected Result Received: %s" % recv_data1)
 			
-		add_packet2 = self.CRC_16_IBM('2320' + self.source_port + '2900000000000000' + self.controller_serial + '00000200' + badge + '00000000a04e4605' + '87' + '1c9f3b0100000000000000').decode('hex')
+		add_packet2 = self.CRC_16_IBM('2320' + self.source_port + '2900000000000000' + self.controller_serial + '00000200' + badge + '00000000a04e4605' + '87' + '1c9f3b' + "".join(doorsList) + '00000000').decode('hex')
 		self.s.send(self.start_transaction)
 		self.s.send(add_packet2)
 		recv_data2 =  binascii.b2a_hex(self.s.recv(1024))

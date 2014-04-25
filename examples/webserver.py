@@ -20,7 +20,7 @@ class RootServer:
 						return "Failed To Remove User"
 				elif (action == "add"):
 					try:
-						client.add_user(badge)
+						client.add_user(badge, [1,2])
 						return "User Added Successfully"
 					except:
 						return "Failed To Add User"
