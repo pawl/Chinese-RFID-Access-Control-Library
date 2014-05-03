@@ -33,13 +33,12 @@ class RootServer:
 
 if __name__ == '__main__':
 	server_config={
-		'server.socket_host': '0.0.0.0',
+                'global': {'server.socket_host': '0.0.0.0',
 		'server.socket_port':443,
 		'server.ssl_module':'pyopenssl',
 		'server.ssl_certificate':'server.crt',
 		'server.ssl_private_key':'server.key',
-		'log.access_file' : os.path.join("access.log"),
+		'log.access_file' : os.path.join("access.log")}
 	}
 
-	cherrypy.config.update(server_config)
-	cherrypy.quickstart(RootServer(), '/accessControlApi')
+	cherrypy.quickstart(RootServer(), '/accessControlApi', server_config)
