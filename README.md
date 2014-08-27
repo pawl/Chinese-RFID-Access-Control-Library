@@ -76,7 +76,7 @@ Open door #1:
 	
 TODO
 -----
-- Add an optional name parameter to add_user. The access controller also stores the user's name.
+- Adding a name to an user without going through the web interface doesn't seem to be possible through the desktop software. Figure out a way to do this? (It might not be possible to do it without doing something hacky with the web interface.)
 - The controller also stores the user's 2-factor pin for when the keypad is enabled. Need to add an optional parameter to add_user for a pin.
 - Add a get_users method to RFIDClient that outputs a list of all the users currently in the controller.
 - Add a get_logs method to RFIDClient which outputs the card swipe logs.
