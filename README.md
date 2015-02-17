@@ -29,10 +29,17 @@ RFID Card Number Explanation
 -----
 ![alt tag](https://raw.githubusercontent.com/pawl/Chinese-RFID-Access-Control-Library/master/rfid_card_number_explanation.png)
 
-There are two numbers on the card. The access controller only uses the right number which I'm calling comma-format.
+There are usually two sets of numbers on the 125kHz EM4100 RFID cards. Key fobs usually only have a single 10-digit number.
 
-My usage example below shows an example of a function which converts the number on the left (which I'm calling 10-digit format) 
-to the number on the right (comma format).
+The number on the right, "comma format":
+* The access controller only uses this number.
+* According to the Weigand 26 spec, this is the format: ```8 bit facility code, 16 bit ID number```
+
+The number on the left, "10-digit format":
+* According to the Weigand 26 spec, this is the decimal format of the entire 8 bit facility code + the 16 bit ID number.
+* Numbers higher than 16,777,216 (2 ^ 24 bits) aren't possible.
+
+My usage example below shows an example of a function which converts the 10-digit format to the comma format, and vice versa.
 
 Usage
 -----
