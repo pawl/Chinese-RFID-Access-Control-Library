@@ -37,7 +37,7 @@ The number on the right, "comma format":
 
 The number on the left, "10-digit format":
 * According to the Weigand 26 spec, this is the decimal format of the entire 8 bit facility code + the 16 bit ID number.
-* Numbers higher than 16,777,216 (2 ^ 24 bits) aren't possible.
+* Since there are 24 bits, only a range from 0 to 16,777,215 is possible.
 
 My usage example below shows an example of a function which converts the 10-digit format to the comma format, and vice versa.
 
