@@ -69,7 +69,7 @@ def comma_format_to_ten_digit(badge):
     return int(formattedID, 16)
 
 
-class RFIDClient():
+class RFIDClient(object):
     def __init__(self, ip, serial):
         """
         :param ip: IP address of the controller.
@@ -110,7 +110,7 @@ class RFIDClient():
             sys.exit(1)
         return s
 
-    def CRC_16_IBM(self, data):
+    def crc_16_ibm(self, data):
         """ Returns hex string with CRC values added to positions 4 through 8.
         This CRC value is required by the controller or it will not process the
         request.
@@ -118,10 +118,10 @@ class RFIDClient():
         :param data: original hex string which needs the CRC values added to it
         """
         hex_data = data.decode("hex")
-        byteList = map(ord, hex_data)
+        byte_list = map(ord, hex_data)
         num1 = 0
-        for i in xrange(0, len(byteList)):
-            num2 = byteList[i]
+        for i in xrange(0, len(byte_list)):
+            num2 = byte_list[i]
             if i == 2 or i == 3:
                 num2 = 0
             num1 ^= num2
@@ -160,7 +160,7 @@ class RFIDClient():
         # pack badge number as little endian integer
         badge = struct.pack('<I', badge).encode('hex')
 
-        add_packet1 = self.CRC_16_IBM(
+        add_packet1 = self.crc_16_ibm(
             '2010' + self.source_port + '2800000000000000' +
             self.controller_serial + '00000200ffffffff'
         ).decode('hex')
@@ -172,7 +172,7 @@ class RFIDClient():
         if (recv_data1[:4] != '2011'):
             raise Exception("Unexpected Result Received: %s" % recv_data1)
 
-        add_packet2 = self.CRC_16_IBM(
+        add_packet2 = self.crc_16_ibm(
             '2320' + self.source_port + '2900000000000000' +
             self.controller_serial + '00000200' + badge +
             '00000000a04e4605' + '87' + '1c9f3b' + doors_enabled + '00000000'
@@ -192,7 +192,7 @@ class RFIDClient():
         # pack badge number as little endian integer
         badge = struct.pack('<I', badge).encode('hex')
 
-        remove_packet = self.CRC_16_IBM(
+        remove_packet = self.crc_16_ibm(
             '2320' + self.source_port + '2200000000000000' +
             self.controller_serial + '00000200' + badge +
             '00000000204e460521149f3b0000000000000000'
@@ -213,7 +213,7 @@ class RFIDClient():
 
         door_number = str(door_number - 1).zfill(2)
 
-        open_door_packet = self.CRC_16_IBM(
+        open_door_packet = self.crc_16_ibm(
             '2040' + self.source_port + '0500000000000000' +
             self.controller_serial + '0000020001000000ffffffffffffffff' +
             door_number + '000000'
