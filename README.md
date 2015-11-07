@@ -32,7 +32,7 @@ RFID Card Number Explanation
 There are usually two sets of numbers on the 125kHz EM4100 RFID cards. Key fobs usually only have a single 10-digit number.
 
 The number on the right, "comma format":
-* The access controller only uses this number.
+* The access controller's web interface only shows this number.
 * According to the Weigand 26 spec, this is the badge number in this format: ```<8 bit facility code as an integer>, <16 bit ID number as an integer>```
 
 The number on the left, "10-digit format":
