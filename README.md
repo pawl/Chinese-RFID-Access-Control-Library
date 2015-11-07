@@ -33,11 +33,11 @@ There are usually two sets of numbers on the 125kHz EM4100 RFID cards. Key fobs 
 
 The number on the right, "comma format":
 * The access controller only uses this number.
-* According to the Weigand 26 spec, this is the format: ```8 bit facility code, 16 bit ID number```
+* According to the Weigand 26 spec, this is the badge number in this format: ```<8 bit facility code as decimal>, <16 bit ID number as decimal>```
 
 The number on the left, "10-digit format":
-* According to the Weigand 26 spec, this is the decimal format of the entire 8 bit facility code + the 16 bit ID number.
-* Since there are 24 bits, only a range from 0 to 16,777,215 is possible.
+* According to the Weigand 26 spec, this is the last 24 bits of data from the card as a decimal (this includes both the 8 bit facility code and the 16 bit ID number).
+* Since there are 24 bits, only 10-digit IDs within a range of 0 to 16,777,215 are possible.
 
 My usage example below shows an example of a function which converts the 10-digit format to the comma format, and vice versa.
 
