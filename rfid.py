@@ -9,13 +9,13 @@ def ten_digit_to_comma_format(badge):
     10-digit RFID number.
 
     Explanation:
-    *On an EM4100/4001 spec RFID card generally there will be a two sets of
+    *On an EM4100/4001 spec RFID card, there will generally be two sets of
     numbers like this: 0015362878 234,27454
     *The part of the number before the comma represents the first hex byte of
     the "10 digit" number, and the second part is the last 2 hex bytes of the
     "10 digit" card number.
     *15362878 = EA6B3E
-    *Splitting EA and 6B3E and converting them to a decimal numbers will give
+    *Splitting EA and 6B3E and converting them to decimal numbers will give
     you 234 and 27454 (the number with the comma on the card).
     *The comma is excluded in the return value because the controller does not
     need the comma.
@@ -39,7 +39,7 @@ def comma_format_to_ten_digit(badge):
     the comma)
 
     Explanation:
-    *On an EM4100/4001 spec RFID card generally there will be a two sets of
+    *On an EM4100/4001 spec RFID card, there will generally be two sets of
     numbers like this: 0015362878 234,27454
     *This function turns the number with the comma (but excluding the comma)
     into the 10-digit number which is generally next to it.
