@@ -118,14 +118,14 @@ class RFIDClient(object):
         :param data: original hex string which needs the CRC values added to it
         """
         hex_data = data.decode("hex")
-        byte_list = map(ord, hex_data)
+        byte_list = list(map(ord, hex_data))
         num1 = 0
-        for i in xrange(0, len(byte_list)):
+        for i in range(0, len(byte_list)):
             num2 = byte_list[i]
             if i == 2 or i == 3:
                 num2 = 0
             num1 ^= num2
-            for j in xrange(0, 8):
+            for j in range(0, 8):
                 if num1 & 1 > 0:
                     num1 = (num1 >> 1) ^ 40961
                 else:
