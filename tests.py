@@ -2,8 +2,7 @@ import unittest
 
 from mock import patch
 
-from rfid import (RFIDClient, comma_format_to_ten_digit,
-                  ten_digit_to_comma_format)
+from rfid import RFIDClient, comma_format_to_ten_digit, ten_digit_to_comma_format
 
 TEST_CONTROLLER_IP = "192.168.1.20"
 TEST_CONTROLLER_SERIAL = 123106461
@@ -91,7 +90,10 @@ class TestRFIDClient(unittest.TestCase):
             + "00000200ffffffff"
         )
         result = RFIDClient.crc_16_ibm(test_data)
-        expected_result = "201066f228000000000000009d74560700000200ffffffff"
+        expected_result = (
+            b" \x10f\xf2(\x00\x00\x00\x00\x00\x00\x00\x9dtV\x07\x00\x00\x02"
+            b"\x00\xff\xff\xff\xff"
+        )
         self.assertEqual(result, expected_result)
 
     @patch(

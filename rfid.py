@@ -127,7 +127,7 @@ class RFIDClient(object):
 
     @staticmethod
     def crc_16_ibm(data):
-        """Returns hex string with CRC values added to positions 4 through 8.
+        """Returns hex byte string with CRC values added to positions 4 through 8.
         This CRC value is required by the controller or it will not process the
         request.
 
@@ -156,7 +156,7 @@ class RFIDClient(object):
         endian = struct.pack("<H", code)
         data_list[4:8] = binascii.hexlify(endian).decode("utf8")
 
-        return "".join(data_list)
+        return bytearray.fromhex("".join(data_list))
 
     def add_user(self, badge, doors):
         if not isinstance(badge, int):
@@ -184,7 +184,6 @@ class RFIDClient(object):
             + self.controller_serial
             + "00000200ffffffff"
         )
-        add_packet1 = bytearray.fromhex(add_packet1)
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet1)
@@ -207,7 +206,6 @@ class RFIDClient(object):
             + doors_enabled
             + "00000000"
         )
-        add_packet2 = bytearray.fromhex(add_packet2)
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet2)
@@ -233,7 +231,6 @@ class RFIDClient(object):
             + badge
             + "00000000204e460521149f3b0000000000000000"
         )
-        remove_packet = bytearray.fromhex(remove_packet)
 
         self.s.send(self.start_transaction)
         self.s.send(remove_packet)
@@ -260,7 +257,6 @@ class RFIDClient(object):
             + door_number
             + "000000"
         )
-        open_door_packet = bytearray.fromhex(open_door_packet)
 
         self.s.send(self.start_transaction)
         self.s.send(open_door_packet)
