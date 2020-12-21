@@ -75,9 +75,10 @@ class RFIDClient(object):
     # part of the byte string replaced by the CRC, not required to be valid
     source_port = "0000"
 
-    # this byte starts a transaction
+    # these bytes form the packet that starts a transaction with the RFID controller
     start_transaction = (
-        "0d0d0000000000000000000000000000000000000000000000000000".decode("hex")
+        "\r\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+        "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
     )
 
     def __init__(self, ip, serial):
@@ -92,8 +93,14 @@ class RFIDClient(object):
             raise TypeError("Serial must be set to an integer")
 
         # pack controller serial as little endian integer
-        self.controller_serial = struct.pack("<I", serial).encode("hex")
+        self.controller_serial = self.little_endian_hex(serial)
         self.s = self.connect(ip)
+
+    @staticmethod
+    def little_endian_hex(val):
+        """Convert integer to little-endian hex string"""
+        endian = struct.pack("<I", val)
+        return binascii.hexlify(endian).decode('utf8')
 
     @staticmethod
     def check_valid_ipv4_address(ip):
@@ -126,8 +133,8 @@ class RFIDClient(object):
 
         :param data: original hex string which needs the CRC values added to it
         """
-        hex_data = data.decode("hex")
-        byte_list = list(map(ord, hex_data))
+        hex_data = bytearray.fromhex(data)
+        byte_list = list(hex_data)
         num1 = 0
         for i in range(0, len(byte_list)):
             num2 = byte_list[i]
@@ -146,7 +153,8 @@ class RFIDClient(object):
 
         # switch order to little endian and return unsigned short, then
         # replace characters in list with the CRC values
-        data_list[4:8] = struct.pack("<H", code).encode("hex")
+        endian = struct.pack("<H", code)
+        data_list[4:8] = binascii.hexlify(endian).decode('utf8')
 
         return "".join(data_list)
 
@@ -167,7 +175,7 @@ class RFIDClient(object):
                 doors_enabled += "00"
 
         # pack badge number as little endian integer
-        badge = struct.pack("<I", badge).encode("hex")
+        badge = self.little_endian_hex(badge)
 
         add_packet1 = self.crc_16_ibm(
             "2010"
@@ -175,13 +183,14 @@ class RFIDClient(object):
             + "2800000000000000"
             + self.controller_serial
             + "00000200ffffffff"
-        ).decode("hex")
+        )
+        add_packet1 = bytearray.fromhex(add_packet1)
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet1)
         recv_data1 = binascii.b2a_hex(self.s.recv(1024))
 
-        if recv_data1[:4] != "2011":
+        if recv_data1[:4].decode() != "2011":
             raise Exception("Unexpected Result Received: %s" % recv_data1)
 
         add_packet2 = self.crc_16_ibm(
@@ -196,13 +205,14 @@ class RFIDClient(object):
             + "1c9f3b"
             + doors_enabled
             + "00000000"
-        ).decode("hex")
+        )
+        add_packet2 = bytearray.fromhex(add_packet2)
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet2)
         recv_data2 = binascii.b2a_hex(self.s.recv(1024))
 
-        if recv_data2[:4] != "2321":
+        if recv_data2[:4].decode() != "2321":
             raise Exception("Unexpected Result Received: %s" % recv_data2)
 
     def remove_user(self, badge):
@@ -210,7 +220,7 @@ class RFIDClient(object):
             raise TypeError("RFID number must be set to an integer")
 
         # pack badge number as little endian integer
-        badge = struct.pack("<I", badge).encode("hex")
+        badge = self.little_endian_hex(badge)
 
         remove_packet = self.crc_16_ibm(
             "2320"
@@ -220,13 +230,14 @@ class RFIDClient(object):
             + "00000200"
             + badge
             + "00000000204e460521149f3b0000000000000000"
-        ).decode("hex")
+        )
+        remove_packet = bytearray.fromhex(remove_packet)
 
         self.s.send(self.start_transaction)
         self.s.send(remove_packet)
         recv_data = binascii.b2a_hex(self.s.recv(1024))
 
-        if recv_data[:4] != "2321":
+        if recv_data[:4].decode() != "2321":
             raise Exception("Unexpected Result Received: %s" % recv_data)
 
     def open_door(self, door_number):
@@ -245,13 +256,14 @@ class RFIDClient(object):
             + "0000020001000000ffffffffffffffff"
             + door_number
             + "000000"
-        ).decode("hex")
+        )
+        open_door_packet = bytearray.fromhex(open_door_packet)
 
         self.s.send(self.start_transaction)
         self.s.send(open_door_packet)
         recv_data = binascii.b2a_hex(self.s.recv(1024))
 
-        if recv_data[:4] != "2041":
+        if recv_data[:4].decode() != "2041":
             raise Exception("Unexpected Result Received: %s" % recv_data)
 
     def __del__(self):

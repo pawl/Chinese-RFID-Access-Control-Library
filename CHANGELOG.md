@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.1.1
+
+Released on December 20, 2020
+
+### Added
+
+* More Python 3 fixes
+* More tests (for add_user, remove_user, open_door)
+
 ## 0.1.0
 
 Released on December 20, 2020
