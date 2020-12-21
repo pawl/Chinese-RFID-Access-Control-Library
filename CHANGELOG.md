@@ -8,6 +8,7 @@
 
 ### Changed
 
+* Simplified code for checking for expected response from the RFID controller
 * Formatted examples with isort and black
 
 ## 0.1.2

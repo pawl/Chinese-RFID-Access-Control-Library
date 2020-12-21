@@ -190,10 +190,9 @@ class RFIDClient(object):
         self.s.send(add_packet1)
 
         binary_response_1 = self.s.recv(1024)
-        recv_data1 = binascii.b2a_hex(binary_response_1)
-
-        if recv_data1[:4].decode() != "2011":
-            raise Exception("Unexpected Result Received: %s" % recv_data1)
+        if binary_response_1[:2] != b" \x11":
+            msg = "Unexpected Result Received: {}".format(binary_response_1)
+            raise Exception(msg)
 
         add_packet2 = self.crc_16_ibm(
             "2320"
@@ -214,10 +213,9 @@ class RFIDClient(object):
         self.s.send(add_packet2)
 
         binary_response_2 = self.s.recv(1024)
-        recv_data2 = binascii.b2a_hex(binary_response_2)
-
-        if recv_data2[:4].decode() != "2321":
-            raise Exception("Unexpected Result Received: %s" % recv_data2)
+        if binary_response_2[:2] != b"#!":
+            msg = "Unexpected Result Received: {}".format(binary_response_2)
+            raise Exception(msg)
 
     def remove_user(self, badge):
         if not isinstance(badge, int):
@@ -241,10 +239,9 @@ class RFIDClient(object):
         self.s.send(remove_packet)
 
         binary_response = self.s.recv(1024)
-        recv_data = binascii.b2a_hex(binary_response)
-
-        if recv_data[:4].decode() != "2321":
-            raise Exception("Unexpected Result Received: %s" % recv_data)
+        if binary_response[:2] != b"#!":
+            msg = "Unexpected Result Received: {}".format(binary_response)
+            raise Exception(msg)
 
     def open_door(self, door_number):
         if not isinstance(door_number, int):
@@ -269,10 +266,9 @@ class RFIDClient(object):
         self.s.send(open_door_packet)
 
         binary_response = self.s.recv(1024)
-        recv_data = binascii.b2a_hex(binary_response)
-
-        if recv_data[:4].decode() != "2041":
-            raise Exception("Unexpected Result Received: %s" % recv_data)
+        if binary_response[:2] != b" A":
+            msg = "Unexpected Result Received: {}".format(binary_response)
+            raise Exception(msg)
 
     def __del__(self):
         """Closes the socket connection."""
