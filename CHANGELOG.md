@@ -12,3 +12,4 @@ Released on December 20, 2020
 ### Changed
 
 * Minor refactoring for easier testing
+* Fixed setup.py issues preventing successful packaging
