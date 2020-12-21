@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.1.2
+
+Released on December 20, 2020
+
+### Changed
+
+* More Python 3 fixes (fixed TypeError)
+
 ## 0.1.1
 
 Released on December 20, 2020
