@@ -100,7 +100,7 @@ class RFIDClient(object):
     def little_endian_hex(val):
         """Convert integer to little-endian hex string"""
         endian = struct.pack("<I", val)
-        return binascii.hexlify(endian).decode('utf8')
+        return binascii.hexlify(endian).decode("utf8")
 
     @staticmethod
     def check_valid_ipv4_address(ip):
@@ -154,7 +154,7 @@ class RFIDClient(object):
         # switch order to little endian and return unsigned short, then
         # replace characters in list with the CRC values
         endian = struct.pack("<H", code)
-        data_list[4:8] = binascii.hexlify(endian).decode('utf8')
+        data_list[4:8] = binascii.hexlify(endian).decode("utf8")
 
         return "".join(data_list)
 

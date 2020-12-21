@@ -5,7 +5,6 @@ from mock import patch
 from rfid import (RFIDClient, comma_format_to_ten_digit,
                   ten_digit_to_comma_format)
 
-
 TEST_CONTROLLER_IP = "192.168.1.20"
 TEST_CONTROLLER_SERIAL = 123106461
 TEST_BADGE = 16935527
@@ -66,20 +65,22 @@ class TestRFIDClient(unittest.TestCase):
         expected_result = "201066f228000000000000009d74560700000200ffffffff"
         self.assertEqual(result, expected_result)
 
-    @patch("rfid.RFIDClient.connect", return_value=mock_socket([b'\x23\x21', b'\x20\x11']))
+    @patch(
+        "rfid.RFIDClient.connect", return_value=mock_socket([b"\x23\x21", b"\x20\x11"])
+    )
     @patch("rfid.RFIDClient.check_valid_ipv4_address")
     def test_add_user(self, mock_connect, mock_check_valid_ipv4_address):
         rfid_client = RFIDClient(TEST_CONTROLLER_IP, TEST_CONTROLLER_SERIAL)
         test_doors = [1, 2]
         rfid_client.add_user(TEST_BADGE, test_doors)
 
-    @patch("rfid.RFIDClient.connect", return_value=mock_socket([b'\x23\x21']))
+    @patch("rfid.RFIDClient.connect", return_value=mock_socket([b"\x23\x21"]))
     @patch("rfid.RFIDClient.check_valid_ipv4_address")
     def test_remove_user(self, mock_connect, mock_check_valid_ipv4_address):
         rfid_client = RFIDClient(TEST_CONTROLLER_IP, TEST_CONTROLLER_SERIAL)
         rfid_client.remove_user(TEST_BADGE)
 
-    @patch("rfid.RFIDClient.connect", return_value=mock_socket([b'\x20\x41']))
+    @patch("rfid.RFIDClient.connect", return_value=mock_socket([b"\x20\x41"]))
     @patch("rfid.RFIDClient.check_valid_ipv4_address")
     def test_open_door(self, mock_connect, mock_check_valid_ipv4_address):
         rfid_client = RFIDClient(TEST_CONTROLLER_IP, TEST_CONTROLLER_SERIAL)
