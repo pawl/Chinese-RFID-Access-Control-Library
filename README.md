@@ -1,10 +1,10 @@
 Chinese RFID Access Control Library
 ========================
 
-This library allows python to control one of the most common RFID Access Control Systems sold in China. Now you can integrate an access 
-control system with your software to do things like remove an user when they haven't paid their bill. 
+This library allows python to control one of the most common RFID Access Control Systems sold in China. Now you can integrate an access
+control system with your software to do things like remove an user when they haven't paid their bill.
 
-The goal of this project is to provide the ability to automate an inexpensive, out-of-the-box RFID Access Control solution. This is 
+The goal of this project is to provide the ability to automate an inexpensive, out-of-the-box RFID Access Control solution. This is
 especially made for businesses that rely on access control + monthly billing (hackerspaces, makerspaces, and gyms).
 
 Main Features
@@ -16,13 +16,13 @@ Main Features
 
 Hardware Requirement
 -----
-This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can 
-be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon. It costs around $30-85 (depending on the number of 
+This library currently only works with a single type of controller which goes by a wide variety of model numbers. The controller can
+be found by searching for "TCP access control" on Ebay, Aliexpress, and Amazon. It costs around $30-85 (depending on the number of
 doors). You can know which one to buy by looking for one that looks like this:
 
 ![alt tag](https://raw.githubusercontent.com/pawl/Chinese-RFID-Access-Control-Library/master/access_controller.png)
 
-One of the awesome things this controller has is a web interface. You can also add users, remove users, view logs, and change settings 
+One of the awesome things this controller has is a web interface. You can also add users, remove users, view logs, and change settings
 manually through that interface. Pictures of the interface are available here: http://imgur.com/a/Mw04Y
 
 RFID Card Number Explanation
@@ -70,7 +70,7 @@ Remove user (using 10-digit format RFID number):
 	badge = ten_digit_to_comma_format(11111111) # badge number needs to be converted to "comma format"
 
 	client.remove_user(badge)
-	
+
 Open door #1:
 
 	from rfid import RFIDClient
@@ -80,7 +80,12 @@ Open door #1:
 	client = RFIDClient(ip_address, controller_serial)
 
 	client.open_door(1)
-	
+
+Running Tests
+-----
+
+	python setup.py test
+
 TODO
 -----
 - Adding a name to an user without the web interface doesn't seem to be possible. Figure out a way to do this? (It might not be possible to do it without doing something hacky with the web interface.)
@@ -91,5 +96,5 @@ TODO
 Special Thanks
 -----
 - Thanks to Brooks Scharff for figuring out the cool stuff that this access controller could do and keeping me interested in the project.
-- Thanks to Dallas Makerspace for letting me implement and test it at their facility. 
+- Thanks to Dallas Makerspace for letting me implement and test it at their facility.
 - Thanks to Mike Metzger for his work on starting to reverse engineer Dallas Makerspace's first access control system and documenting it to show me how to do it. https://dallasmakerspace.org/wiki/ReverseEngineeringRFIDReader
