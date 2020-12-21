@@ -8,6 +8,8 @@ with open('README.md') as f:
 with open('LICENSE') as f:
     license = f.read()
 
+tests_require = ['mock']
+
 setup(
     name='Chinese-RFID-Access-Control-Library',
     version='0.0.6',
@@ -21,4 +23,5 @@ setup(
     keywords=['rfid', 'access control'],
     py_modules=['rfid'],
     test_suite="tests",
+    tests_require=tests_require,
 )

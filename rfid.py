@@ -70,16 +70,20 @@ def comma_format_to_ten_digit(badge):
 
 
 class RFIDClient(object):
+    # part of the byte string replaced by the CRC, not required to be valid
+    source_port = '0000'
+
+    # this byte starts a transaction
+    start_transaction = ('0d0d000000000000000000000000000000000000000'
+                         '0000000000000'.decode('hex'))
+
     def __init__(self, ip, serial):
         """
         :param ip: IP address of the controller.
         :param serial: Serial number written on the controller, also
-        "Device NO" on the web interface's configuration page.
+            "Device NO" on the web interface's configuration page.
         """
-        try:
-            socket.inet_aton(ip)
-        except socket.error:
-            raise TypeError("IP Address is not valid")
+        self.check_valid_ipv4_address(ip)
 
         if not isinstance(serial, int):
             raise TypeError("Serial must be set to an integer")
@@ -88,14 +92,15 @@ class RFIDClient(object):
         self.controller_serial = struct.pack('<I', serial).encode('hex')
         self.s = self.connect(ip)
 
-        # part of the byte string replaced by the CRC, not required to be valid
-        self.source_port = '0000'
+    @staticmethod
+    def check_valid_ipv4_address(ip):
+        try:
+            socket.inet_aton(ip)
+        except socket.error:
+            raise TypeError("IP Address is not valid")
 
-        # this byte starts a transaction
-        self.start_transaction = ('0d0d000000000000000000000000000000000000000'
-                                  '0000000000000'.decode('hex'))
-
-    def connect(self, ip, timeout=5, port=60000):
+    @staticmethod
+    def connect(ip, timeout=5, port=60000):
         """
         :param ip: IP address of the controller
         :param timeout: settimeout value for the sockets connection
@@ -110,7 +115,8 @@ class RFIDClient(object):
             sys.exit(1)
         return s
 
-    def crc_16_ibm(self, data):
+    @staticmethod
+    def crc_16_ibm(data):
         """ Returns hex string with CRC values added to positions 4 through 8.
         This CRC value is required by the controller or it will not process the
         request.
@@ -230,4 +236,5 @@ class RFIDClient(object):
         """
         Closes the socket connection.
         """
-        self.s.close()
+        if hasattr(self, 's'):
+            self.s.close()
