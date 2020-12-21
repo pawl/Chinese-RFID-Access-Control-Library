@@ -17,7 +17,7 @@ setup(
     author_email='paul90brown@gmail.com',
     url='https://github.com/pawl/Chinese-RFID-Access-Control-Library',
     license='MIT',
-    download_url=['https://github.com/pawl/Chinese-RFID-Access-Control-Library/tarball/master#egg=package-0.1.0'],
+    download_url='https://pypi.python.org/pypi/Chinese-RFID-Access-Control-Library',
     keywords=['rfid', 'access control'],
     py_modules=['rfid'],
     test_suite="tests",
