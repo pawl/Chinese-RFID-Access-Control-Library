@@ -188,7 +188,9 @@ class RFIDClient(object):
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet1)
-        recv_data1 = binascii.b2a_hex(self.s.recv(1024))
+
+        binary_response_1 = self.s.recv(1024)
+        recv_data1 = binascii.b2a_hex(binary_response_1)
 
         if recv_data1[:4].decode() != "2011":
             raise Exception("Unexpected Result Received: %s" % recv_data1)
@@ -210,7 +212,9 @@ class RFIDClient(object):
 
         self.s.send(self.start_transaction)
         self.s.send(add_packet2)
-        recv_data2 = binascii.b2a_hex(self.s.recv(1024))
+
+        binary_response_2 = self.s.recv(1024)
+        recv_data2 = binascii.b2a_hex(binary_response_2)
 
         if recv_data2[:4].decode() != "2321":
             raise Exception("Unexpected Result Received: %s" % recv_data2)
@@ -235,7 +239,9 @@ class RFIDClient(object):
 
         self.s.send(self.start_transaction)
         self.s.send(remove_packet)
-        recv_data = binascii.b2a_hex(self.s.recv(1024))
+
+        binary_response = self.s.recv(1024)
+        recv_data = binascii.b2a_hex(binary_response)
 
         if recv_data[:4].decode() != "2321":
             raise Exception("Unexpected Result Received: %s" % recv_data)
@@ -261,7 +267,9 @@ class RFIDClient(object):
 
         self.s.send(self.start_transaction)
         self.s.send(open_door_packet)
-        recv_data = binascii.b2a_hex(self.s.recv(1024))
+
+        binary_response = self.s.recv(1024)
+        recv_data = binascii.b2a_hex(binary_response)
 
         if recv_data[:4].decode() != "2041":
             raise Exception("Unexpected Result Received: %s" % recv_data)
