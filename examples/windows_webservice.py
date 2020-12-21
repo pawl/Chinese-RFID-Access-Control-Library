@@ -3,12 +3,13 @@ The most basic (working) CherryPy 3.1 Windows service possible.
 Requires Mark Hammond's pywin32 package.
 """
 
-import win32serviceutil
-import win32service
+import os
 
 import cherrypy
-import os
-from rfid import ten_digit_to_comma_format, RFIDClient
+import win32service
+import win32serviceutil
+
+from rfid import RFIDClient, ten_digit_to_comma_format
 
 ip_address = "192.168.1.20"
 controller_serial = 11111111

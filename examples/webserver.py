@@ -1,6 +1,8 @@
-import cherrypy
 import os
-from rfid import ten_digit_to_comma_format, RFIDClient
+
+import cherrypy
+
+from rfid import RFIDClient, ten_digit_to_comma_format
 
 ip_address = "192.168.1.20"
 controller_serial = 123106461
