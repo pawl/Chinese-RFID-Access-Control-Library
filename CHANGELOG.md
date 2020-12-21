@@ -1,5 +1,15 @@
 # Change Log
 
+## Unreleased
+
+### Added
+
+* Tests now contain examples from real responses from the RFID controller
+
+### Changed
+
+* Formatted examples with isort and black
+
 ## 0.1.2
 
 Released on December 20, 2020
@@ -30,3 +40,4 @@ Released on December 20, 2020
 
 * Minor refactoring for easier testing
 * Fixed setup.py issues preventing successful packaging
+* PEP8 fixes + code formatted with black and isort
