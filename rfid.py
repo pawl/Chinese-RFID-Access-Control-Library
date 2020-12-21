@@ -98,7 +98,7 @@ class RFIDClient(object):
 
     @staticmethod
     def little_endian_hex(val):
-        """Convert integer to little-endian hex string"""
+        """Convert integer to little-endian hex string."""
         endian = struct.pack("<I", val)
         return binascii.hexlify(endian).decode("utf8")
 
@@ -275,8 +275,6 @@ class RFIDClient(object):
             raise Exception("Unexpected Result Received: %s" % recv_data)
 
     def __del__(self):
-        """
-        Closes the socket connection.
-        """
+        """Closes the socket connection."""
         if hasattr(self, "s"):
             self.s.close()
