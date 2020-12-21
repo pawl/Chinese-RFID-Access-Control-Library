@@ -12,7 +12,7 @@ tests_require = ['mock']
 
 setup(
     name='Chinese-RFID-Access-Control-Library',
-    version='0.0.6',
+    version='0.1.0',
     description='A library for interfacing with one of the most common RFID Access Control System sold in China.',
     long_description=readme,
     author='Paul Brown',
